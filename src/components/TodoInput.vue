@@ -20,8 +20,18 @@
 
 <script>
 import Modal from './common/Modal.vue'
+import axios from 'axios'
 
 export default {
+  created(){
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+		.then(res => { 
+      console.log(res.data) 
+       for (let i = 0; i < res.data.length; i++) {
+        this.$store.commit('addOneItem', res.data[i].title);
+      }
+		})
+  },
   data() {
     return {
       newTodoItem: '',
